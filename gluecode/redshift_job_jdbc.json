@@ -1,0 +1,49 @@
+{
+  "name" : "redshift_job_jdbc",
+  "jobMode" : "SCRIPT",
+  "description" : "",
+  "role" : "arn:aws:iam::541974874652:role/service-role/AWSGlueServiceRole-batch3",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-541974874652-eu-north-1/scripts/redshift_job_jdbc.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--CUSTOMERS_S3_PATH" : "s3://catalogdata1807/customer/customers_1.csv",
+    "--enable-glue-datacatalog" : "",
+    "--REDSHIFT_CONNECTION" : "batch3_demo_2907",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--ACCOUNTS_S3_PATH" : "s3://catalogdata1807/account/account_1.csv",
+    "--REDSHIFT_TABLE" : "customer_account_summary",
+    "--TempDir" : "s3://aws-glue-assets-541974874652-eu-north-1/temporary/",
+    "--enable-metrics" : "",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-541974874652-eu-north-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-observability-metrics" : "true",
+    "--conf" : "spark.eventLog.rolling.enabled=true --conf spark.sql.catalog.glue_catalog.glue.skip-name-validation=true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--REDSHIFT_SCHEMA" : "sh1",
+    "--REDSHIFT_TMP_DIR" : "s3://catalogdata1807/output/",
+    "--job-language" : "python",
+    "--REDSHIFT_DB" : "dev"
+  },
+  "connections" : {
+    "connections" : [ "batch3_demo_2907" ]
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 480,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "5.1",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "batch3-projet-deployment",
+    "branch" : "featuresameer",
+    "folder" : "gluecode"
+  }
+}
